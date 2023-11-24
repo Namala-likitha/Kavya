@@ -1,5 +1,5 @@
 view: alert {
-  sql_table_name: gcpm2318.alert ;;
+  sql_table_name: gcpm2318.alert@{region}{{ _user_attributes['test'] }}.kavya ;;
   drill_fields: [id]
 
   dimension: id {
@@ -125,17 +125,22 @@ view: alert {
     drill_fields: [detail*]
   }
 
+  measure: count_d {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	alert_condition.id,
-	alert_condition.field_name,
-	dashboard_element.id,
-	alert_condition_result.count,
-	alert_destination.count,
-	alert_sync_history.count
-	]
+  id,
+  alert_condition.id,
+  alert_condition.field_name,
+  dashboard_element.id,
+  alert_condition_result.count,
+  alert_destination.count,
+  alert_sync_history.count
+  ]
   }
 
 }
